@@ -1,2 +1,2 @@
-# should_you_upload_youtube
-Youtube data related videos' stat analytics
+# When should you upload your Data videos on Youtube?
+This project focuses on visualizing YouTube video statistics to identify the day of the week that achieves the highest view-to-video ratio. It also demonstrates how to retrieve YouTube data through the API.
