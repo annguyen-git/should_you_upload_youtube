@@ -26,7 +26,7 @@ def get_channel_stats(youtube, handles):
             if 'items' in response and len(response['items']) > 0:
                 item = response['items'][0]
                 data = dict(
-                    channelname=item['snippet']['title'],
+                    channelTitle=item['snippet']['title'],
                     subscribers=item['statistics'].get('subscriberCount', 'N/A'),
                     views=item['statistics'].get('viewCount', 'N/A'),
                     totalVideos=item['statistics'].get('videoCount', 'N/A'),
@@ -35,7 +35,10 @@ def get_channel_stats(youtube, handles):
                 all_data.append(data)
         except Exception as e:
             print(f"Error fetching data for {i}: {e}")
-    
+        if not os.path.exists('data'):
+            os.makedirs('data')
+
+        pd.DataFrame(all_data).to_csv('data/channel_stats.csv', index=False)
     return pd.DataFrame(all_data)
 
 # From channel info, extract video ids from uploads playlist
@@ -123,9 +126,9 @@ def data_channel_youtube(youtube,handles):
 
 def data_video_youtube(youtube,channel_data):
     video_df = pd.DataFrame()
-    for c in channel_data['channelname'].unique():
+    for c in channel_data['channelTitle'].unique():
         print("Getting video information from channel: " + c)
-        playlist_id = channel_data.loc[channel_data['channelname']== c, 'uploads'].iloc[0]
+        playlist_id = channel_data.loc[channel_data['channelTitle']== c, 'uploads'].iloc[0]
         video_ids = get_video_ids(youtube, playlist_id)
         video_data = get_video_details(youtube, video_ids)
         video_df = pd.concat([video_df, video_data], ignore_index=True)
