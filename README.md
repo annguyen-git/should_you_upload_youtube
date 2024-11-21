@@ -6,6 +6,7 @@ This project retrieves data about YouTube videos using the Google API, performs 
 1. **Data Retrieval**: Fetch data from YouTube using the Google API, including information like views, likes, comments, and more.
 2. **Exploratory Data Analysis (EDA)**: Analyze and visualize the data.
 3. **Machine Learning Model**
+4. **Comment Analysis Using NLP**
 
 ## Prerequisites
 - Python 3.11
